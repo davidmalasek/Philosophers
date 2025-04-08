@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
+/*   By: davidmalasek <davidmalasek@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 14:39:26 by davidmalase       #+#    #+#             */
-/*   Updated: 2025/03/02 16:51:24 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/04/08 15:52:51 by davidmalase      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int	main(int argc, char **argv)
 		return (0);
 	if ((argc == 5 || argc == 6) && check_arguments(argc, argv))
 	{
-		sim = init();
+		sim = init(argc, argv);
 	}
 }
+
+/*
+TODO:
+- no ft_*, libft not allowed
+*/
