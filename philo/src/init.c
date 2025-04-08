@@ -6,7 +6,7 @@
 /*   By: davidmalasek <davidmalasek@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 14:47:22 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/04/08 15:50:20 by davidmalase      ###   ########.fr       */
+/*   Updated: 2025/04/08 16:04:45 by davidmalase      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ size_t	get_time(void)
 {
 	struct timeval	time;
 
+	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 /*

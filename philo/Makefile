@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+         #
+#    By: davidmalasek <davidmalasek@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/03 10:23:08 by dmalasek          #+#    #+#              #
-#    Updated: 2025/02/03 10:53:10 by dmalasek         ###   ########.fr        #
+#    Updated: 2025/04/08 16:03:26 by davidmalase      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -pthread
 
 # Source files
-SRC = src/main.c src/valid.c src/utils.c
+SRC = src/main.c src/valid.c src/utils.c src/init.c
 
 # Output
 NAME = philo

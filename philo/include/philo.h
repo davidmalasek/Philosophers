@@ -6,12 +6,13 @@
 /*   By: davidmalasek <davidmalasek@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:22:52 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/04/08 15:52:09 by davidmalase      ###   ########.fr       */
+/*   Updated: 2025/04/08 16:01:39 by davidmalase      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>   // free()
 #include <sys/time.h> // gettimeofday()
 
 typedef struct s_time
