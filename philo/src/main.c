@@ -6,7 +6,7 @@
 /*   By: davidmalasek <davidmalasek@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 14:39:26 by davidmalase       #+#    #+#             */
-/*   Updated: 2025/04/08 16:01:21 by davidmalase      ###   ########.fr       */
+/*   Updated: 2025/04/09 22:01:49 by davidmalase      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	if ((argc == 5 || argc == 6) && check_arguments(argc, argv))
 	{
 		sim = init(argc, argv);
-		free(sim);
+		//free(sim);
 	}
 }
 

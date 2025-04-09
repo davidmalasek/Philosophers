@@ -6,7 +6,7 @@
 /*   By: davidmalasek <davidmalasek@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 14:47:22 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/04/08 16:04:45 by davidmalase      ###   ########.fr       */
+/*   Updated: 2025/04/09 22:07:04 by davidmalase      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,7 @@ size_t	get_time(void)
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
-/*
-void	free_simulation(t_simulation *sim, int philosophers_allocated)
-{
-	int	i;
 
-	if (!sim)
-		return ;
-	i = 0;
-	while (i < philosophers_allocated)
-	{
-		if (sim->philosophers[i].time)
-			free(sim->philosophers[i].time);
-		if (sim->philosophers[i].left_fork)
-			free(sim->philosophers[i].left_fork);
-		if (sim->philosophers[i].right_fork)
-			free(sim->philosophers[i].right_fork);
-		i++;
-	}
-	if (sim->philosophers)
-		free(sim->philosophers);
-	free(sim);
-}*/
 /**
  * Initializes mutexes.
  */
@@ -60,9 +39,7 @@ t_simulation	*init(int argc, char **argv)
 
 	sim = malloc(sizeof(t_simulation));
 	if (!sim)
-	{
-		// TODO: handle malloc error
-	}
+		return (NULL);
 	sim->philosopher_count = atoi(argv[1]);
 	if (argc == 6)
 		sim->meals_needed = atoi(argv[5]);
@@ -71,23 +48,38 @@ t_simulation	*init(int argc, char **argv)
 	init_mutexes(sim);
 	sim->active = 1;
 	sim->philosophers = malloc(sizeof(t_philosopher) * sim->philosopher_count);
+	if (!sim->philosophers)
+	{
+		pthread_mutex_destroy(&sim->write_lock);
+		pthread_mutex_destroy(&sim->active_lock);
+		pthread_mutex_destroy(&sim->meal_lock);
+		free(sim);
+		return (NULL);
+	}
 	sim->time = malloc(sizeof(t_time));
 	if (!sim->time)
 	{
-		// TODO: handle malloc error
+		pthread_mutex_destroy(&sim->write_lock);
+		pthread_mutex_destroy(&sim->active_lock);
+		pthread_mutex_destroy(&sim->meal_lock);
+		free(sim->philosophers);
+		free(sim);
+		return (NULL);
 	}
 	sim->time->start = get_time();
 	sim->time->to_die = atoi(argv[2]);
 	sim->time->to_eat = atoi(argv[3]);
 	sim->time->to_sleep = atoi(argv[4]);
-	if (!sim->philosophers)
-	{
-		// TODO: handle malloc error
-	}
 	sim->forks = malloc(sizeof(pthread_mutex_t) * sim->philosopher_count);
 	if (!sim->forks)
 	{
-		// TODO: handle malloc error
+		pthread_mutex_destroy(&sim->write_lock);
+		pthread_mutex_destroy(&sim->active_lock);
+		pthread_mutex_destroy(&sim->meal_lock);
+		free(sim->philosophers);
+		free(sim->time);
+		free(sim);
+		return (NULL);
 	}
 	i = 0;
 	while (i < sim->philosopher_count)

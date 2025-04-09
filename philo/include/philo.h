@@ -6,7 +6,7 @@
 /*   By: davidmalasek <davidmalasek@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:22:52 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/04/08 16:01:39 by davidmalase      ###   ########.fr       */
+/*   Updated: 2025/04/09 21:35:35 by davidmalase      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ typedef struct s_simulation
 }					t_simulation;
 
 // Init
-t_simulation		*init(int argc, char **argv);
-/*void				free_simulation(t_simulation *sim,
-						int philosophers_allocated);*/
+t_simulation	*init(int argc, char **argv);
 
 // Valid
 int					is_integer(const char *str);
