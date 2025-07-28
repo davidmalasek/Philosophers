@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:52:17 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 18:17:52 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/28 19:38:25 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ size_t	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-/**
- * Checks if arguments are valid.
- * Valid argument is a number.
- * Argument 1-4 must be greater than 0.
- * Argument of index 1 (num of philosophers) cannot
- * be bigger than 200.
- * Argument of index 5 can be equal to 0
- */
+void	init_mutexes(t_simulation *sim)
+{
+	pthread_mutex_init(&sim->write_lock, NULL);
+	pthread_mutex_init(&sim->active_lock, NULL);
+	pthread_mutex_init(&sim->meal_lock, NULL);
+}
+
 int	check_arguments(int argc, char **argv)
 {
 	int	i;

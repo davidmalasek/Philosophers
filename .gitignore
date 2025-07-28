@@ -1,3 +1,8 @@
 .vscode
 .DS_Store
 build/
+philo/philo
+
+# testing
+test.sh
+LazyPhilosophersTester

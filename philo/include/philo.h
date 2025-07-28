@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:22:52 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 18:17:56 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/28 20:06:46 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,28 @@ int					check_arguments(int argc, char **argv);
 // utils.c
 size_t				get_time(void);
 void				precise_sleep(size_t ms);
+void				init_mutexes(t_simulation *sim);
 
 // routine.c
 void				*routine(void *args);
+
+// monitor.c
+int					check_philo_full(t_philosopher *philo);
+int					check_philo_dead(t_philosopher *philo, size_t now);
+void				handle_philo_death(t_simulation *sim, int i, size_t now);
+int					monitor_philo(t_simulation *sim, int i, int *full);
+int					monitor_all_philos(t_simulation *sim, int *full);
+
+// cleanup.c
+void				*cleanup_on_error(t_simulation *sim, int stage);
+void				cleanup_simulation(t_simulation *sim);
+
+// thread.c
+void				start_threads(t_simulation *sim);
+void				join_threads(t_simulation *sim, pthread_t monitor_thread);
+
+// actions.c
+void				philo_think(t_philosopher *philosopher);
+void				philo_take_forks(t_philosopher *philosopher);
+int					philo_eat(t_philosopher *philosopher);
+void				philo_sleep(t_philosopher *philosopher);
