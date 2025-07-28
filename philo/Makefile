@@ -3,22 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: davidmalasek <davidmalasek@student.42.f    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/02/03 10:23:08 by dmalasek          #+#    #+#              #
-#    Updated: 2025/04/08 16:03:26 by davidmalase      ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
 #    By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/20 16:14:47 by dmalasek          #+#    #+#              #
-#    Updated: 2025/02/02 13:59:03 by dmalasek         ###   ########.fr        #
+#    Updated: 2025/07/28 18:27:17 by dmalasek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +15,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -pthread
 
 # Source files
-SRC = src/main.c src/valid.c src/utils.c src/init.c
+SRC = src/main.c src/valid.c src/utils.c src/init.c src/routine.c
 
 # Output
 NAME = philo
@@ -45,7 +33,8 @@ $(NAME): $(OBJ)
 # Rule to compile .c files into .o files inside the temporary directory
 $(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@ > /dev/null 2>&1
+	@printf "[\033[0;32mBUILT\033[0m] %s\n" "$<"
 
 # Ensure the build directory exists
 $(OBJ_DIR):

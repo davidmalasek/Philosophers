@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davidmalasek <davidmalasek@student.42.f    +#+  +:+       +#+        */
+/*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:52:17 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/04/08 16:02:05 by davidmalase      ###   ########.fr       */
+/*   Updated: 2025/07/28 18:17:52 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+size_t	get_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
 
 /**
  * Checks if arguments are valid.
@@ -38,4 +46,13 @@ int	check_arguments(int argc, char **argv)
 		i++;
 	}
 	return (1);
+}
+
+void	precise_sleep(size_t ms)
+{
+	size_t	start;
+
+	start = get_time();
+	while (get_time() - start < ms)
+		usleep(500);
 }
