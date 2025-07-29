@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:56:01 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 20:26:18 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:43:55 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,17 @@ void	philo_think(t_philosopher *philosopher)
 	active = *(philosopher->active);
 	pthread_mutex_unlock(philosopher->active_lock);
 	if (active)
-		printf("%zu %d is thinking\n", get_time(), philosopher->id + 1);
+		printf("[%zu] %d is thinking\n", get_time(), philosopher->id + 1);
 	pthread_mutex_unlock(philosopher->write_lock);
+}
+
+static void	print_fork_taken(t_philosopher *philosopher)
+{
+	size_t	timestamp;
+
+	timestamp = get_time();
+	if (*(philosopher->active))
+		printf("[%zu] %d has taken a fork\n", timestamp, philosopher->id + 1);
 }
 
 void	philo_take_forks(t_philosopher *philosopher)
@@ -31,22 +40,22 @@ void	philo_take_forks(t_philosopher *philosopher)
 	{
 		pthread_mutex_lock(philosopher->left_fork);
 		pthread_mutex_lock(philosopher->write_lock);
-		printf("%zu %d has taken a fork\n", get_time(), philosopher->id + 1);
+		print_fork_taken(philosopher);
 		pthread_mutex_unlock(philosopher->write_lock);
 		pthread_mutex_lock(philosopher->right_fork);
 		pthread_mutex_lock(philosopher->write_lock);
-		printf("%zu %d has taken a fork\n", get_time(), philosopher->id + 1);
+		print_fork_taken(philosopher);
 		pthread_mutex_unlock(philosopher->write_lock);
 	}
 	else
 	{
 		pthread_mutex_lock(philosopher->right_fork);
 		pthread_mutex_lock(philosopher->write_lock);
-		printf("%zu %d has taken a fork\n", get_time(), philosopher->id + 1);
+		print_fork_taken(philosopher);
 		pthread_mutex_unlock(philosopher->write_lock);
 		pthread_mutex_lock(philosopher->left_fork);
 		pthread_mutex_lock(philosopher->write_lock);
-		printf("%zu %d has taken a fork\n", get_time(), philosopher->id + 1);
+		print_fork_taken(philosopher);
 		pthread_mutex_unlock(philosopher->write_lock);
 	}
 }
@@ -63,7 +72,7 @@ int	philo_eat(t_philosopher *philosopher)
 	active = *(philosopher->active);
 	pthread_mutex_unlock(philosopher->active_lock);
 	if (active)
-		printf("%zu %d is eating\n", get_time(), philosopher->id + 1);
+		printf("[%zu] %d is eating\n", get_time(), philosopher->id + 1);
 	pthread_mutex_unlock(philosopher->write_lock);
 	precise_sleep(philosopher->time->to_eat);
 	philosopher->meals_eaten++;
@@ -86,7 +95,7 @@ void	philo_sleep(t_philosopher *philosopher)
 	active = *(philosopher->active);
 	pthread_mutex_unlock(philosopher->active_lock);
 	if (active)
-		printf("%zu %d is sleeping\n", get_time(), philosopher->id + 1);
+		printf("[%zu] %d is sleeping\n", get_time(), philosopher->id + 1);
 	pthread_mutex_unlock(philosopher->write_lock);
 	precise_sleep(philosopher->time->to_sleep);
 }

@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:14:13 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 20:37:42 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:10:47 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,5 @@ int	main(int argc, char **argv)
 
 /*
 TODO:
-- nepouzivat externi funkce
 - nefunguje exit vzdy
 */

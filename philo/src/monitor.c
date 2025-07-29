@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:42:08 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 20:04:00 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:43:53 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_philo_dead(t_philosopher *philo, size_t now)
 void	handle_philo_death(t_simulation *sim, int i, size_t now)
 {
 	pthread_mutex_lock(sim->philosophers[i].write_lock);
-	printf("%zu %d died\n", now, sim->philosophers[i].id + 1);
+	printf("[%zu] %d died\n", now, sim->philosophers[i].id + 1);
 	pthread_mutex_unlock(sim->philosophers[i].write_lock);
 	pthread_mutex_lock(&sim->active_lock);
 	*sim->philosophers[i].active = 0;

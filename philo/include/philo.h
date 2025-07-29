@@ -6,14 +6,14 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:22:52 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 20:06:46 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:44:25 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdio.h>
-#include <stdlib.h>   // free()
-#include <sys/time.h> // gettimeofday()
+#include <stdlib.h>
+#include <sys/time.h>
 #include <unistd.h>
 
 typedef struct s_time
@@ -62,6 +62,7 @@ int					check_arguments(int argc, char **argv);
 size_t				get_time(void);
 void				precise_sleep(size_t ms);
 void				init_mutexes(t_simulation *sim);
+int					ft_atoi(const char *str);
 
 // routine.c
 void				*routine(void *args);

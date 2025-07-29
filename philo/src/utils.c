@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:52:17 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 19:38:25 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:10:07 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	check_arguments(int argc, char **argv)
 	{
 		if (!is_integer(argv[i]))
 			return (0);
-		else if (i == 1 && atoi(argv[i]) > 200)
+		else if (i == 1 && ft_atoi(argv[i]) > 200)
 			return (0);
-		else if (i < 5 && atoi(argv[i]) <= 0)
+		else if (i < 5 && ft_atoi(argv[i]) <= 0)
 			return (0);
-		else if (i == 5 && atoi(argv[i]) < 0)
+		else if (i == 5 && ft_atoi(argv[i]) < 0)
 			return (0);
 		i++;
 	}
@@ -54,4 +54,28 @@ void	precise_sleep(size_t ms)
 	start = get_time();
 	while (get_time() - start < ms)
 		usleep(500);
+}
+
+int	ft_atoi(const char *str)
+{
+	int	sign;
+	int	result;
+
+	sign = 1;
+	result = 0;
+	while ((*str == ' ' || *str == '\f') || (*str == '\n' || *str == '\r')
+		|| (*str == '\t' || *str == '\v'))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -sign;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	return (result * sign);
 }

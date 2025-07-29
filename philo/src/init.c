@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 14:47:22 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 20:06:22 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:11:20 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	alloc_philosophers(t_simulation *sim, char **argv)
 	if (ok)
 	{
 		sim->philosophers->time->start = get_time();
-		sim->philosophers->time->to_die = atoi(argv[2]);
-		sim->philosophers->time->to_eat = atoi(argv[3]);
-		sim->philosophers->time->to_sleep = atoi(argv[4]);
+		sim->philosophers->time->to_die = ft_atoi(argv[2]);
+		sim->philosophers->time->to_eat = ft_atoi(argv[3]);
+		sim->philosophers->time->to_sleep = ft_atoi(argv[4]);
 	}
 	return (ok);
 }
@@ -87,9 +87,9 @@ t_simulation	*init(int argc, char **argv)
 	sim = malloc(sizeof(t_simulation));
 	if (!sim)
 		return (NULL);
-	sim->philosopher_count = atoi(argv[1]);
+	sim->philosopher_count = ft_atoi(argv[1]);
 	if (argc == 6)
-		meals_needed = atoi(argv[5]);
+		meals_needed = ft_atoi(argv[5]);
 	init_mutexes(sim);
 	sim->active = 1;
 	ok = alloc_philosophers(sim, argv);

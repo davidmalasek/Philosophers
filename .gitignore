@@ -4,5 +4,5 @@ build/
 philo/philo
 
 # testing
-test.sh
+test.txt
 LazyPhilosophersTester

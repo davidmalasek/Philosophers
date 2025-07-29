@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:13:54 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 20:33:26 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:44:00 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ int	routine_step(t_philosopher *philosopher)
 	return (0);
 }
 
+static void	handle_single_philosopher(t_philosopher *philosopher)
+{
+	size_t	timestamp;
+
+	pthread_mutex_lock(philosopher->left_fork);
+	pthread_mutex_lock(philosopher->write_lock);
+	timestamp = get_time();
+	printf("[%zu] %d has taken a fork\n", timestamp, philosopher->id + 1);
+	pthread_mutex_unlock(philosopher->write_lock);
+	precise_sleep(philosopher->time->to_die);
+	pthread_mutex_unlock(philosopher->left_fork);
+}
+
 void	*routine(void *args)
 {
 	t_philosopher	*philosopher;
@@ -56,6 +69,16 @@ void	*routine(void *args)
 	result = 0;
 	if (philosopher->id % 2 == 0)
 		precise_sleep(1);
+	if (philosopher->time && philosopher->time->to_die > 0
+		&& philosopher->time->to_eat > 0 && philosopher->time->to_sleep > 0
+		&& philosopher->meals_needed != 0 && philosopher->write_lock
+		&& philosopher->left_fork && philosopher->right_fork
+		&& philosopher->active && philosopher->active_lock
+		&& philosopher->meal_lock && philosopher->id == 0
+		&& philosopher->right_fork == philosopher->left_fork)
+	{
+		return (handle_single_philosopher(philosopher), NULL);
+	}
 	while (1)
 	{
 		result = routine_step(philosopher);
