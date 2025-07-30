@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:43:45 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/28 20:05:16 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:51:31 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	cleanup_simulation(t_simulation *sim)
 	while (i < sim->philosopher_count)
 	{
 		pthread_mutex_destroy(&sim->forks[i]);
-		i = i + 1;
+		i++;
 	}
 	pthread_mutex_destroy(&sim->write_lock);
 	pthread_mutex_destroy(&sim->active_lock);

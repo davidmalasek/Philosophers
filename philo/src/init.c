@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 14:47:22 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/29 13:11:20 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:51:31 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	alloc_forks(t_simulation *sim)
 	while (i < sim->philosopher_count)
 	{
 		pthread_mutex_init(&sim->forks[i], NULL);
-		i = i + 1;
+		i++;
 	}
 	return (1);
 }
@@ -72,7 +72,7 @@ void	setup_philosophers(t_simulation *sim, int meals_needed)
 		sim->philosophers[i].active = &sim->active;
 		sim->philosophers[i].meals_needed = meals_needed;
 		sim->philosophers[i].time = sim->philosophers->time;
-		i = i + 1;
+		i++;
 	}
 }
 

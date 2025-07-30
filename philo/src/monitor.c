@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:42:08 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/29 13:43:53 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:51:31 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	monitor_all_philos(t_simulation *sim, int *full)
 			result = 1;
 		if (result)
 			break ;
-		i = i + 1;
+		i++;
 	}
 	return (result);
 }
