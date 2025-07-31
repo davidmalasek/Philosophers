@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 14:47:22 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/30 16:51:31 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:24:36 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 
 int	alloc_philosophers(t_simulation *sim, char **argv)
 {
-	int	ok;
+	int	i;
 
-	ok = 1;
 	sim->philosophers = malloc(sizeof(t_philosopher) * sim->philosopher_count);
 	if (!sim->philosophers)
-		ok = 0;
-	if (ok)
+		return (0);
+	i = 0;
+	while (i < sim->philosopher_count)
 	{
-		sim->philosophers->time = malloc(sizeof(t_time));
-		if (!sim->philosophers->time)
-			ok = 0;
+		sim->philosophers[i].time = malloc(sizeof(t_time));
+		if (!sim->philosophers[i].time)
+			return (0);
+		else
+		{
+			sim->philosophers[i].time->to_die = ft_atoi(argv[2]);
+			sim->philosophers[i].time->to_eat = ft_atoi(argv[3]);
+			sim->philosophers[i].time->to_sleep = ft_atoi(argv[4]);
+		}
+		i++;
 	}
-	if (ok)
-	{
-		sim->philosophers->time->start = get_time();
-		sim->philosophers->time->to_die = ft_atoi(argv[2]);
-		sim->philosophers->time->to_eat = ft_atoi(argv[3]);
-		sim->philosophers->time->to_sleep = ft_atoi(argv[4]);
-	}
-	return (ok);
+	return (1);
 }
 
 int	alloc_forks(t_simulation *sim)
@@ -54,16 +54,18 @@ int	alloc_forks(t_simulation *sim)
 
 void	setup_philosophers(t_simulation *sim, int meals_needed)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
+	size_t	start_time;
 
 	i = 0;
 	count = sim->philosopher_count;
+	start_time = get_time();
 	while (i < count)
 	{
 		sim->philosophers[i].id = i;
 		sim->philosophers[i].meals_eaten = 0;
-		sim->philosophers[i].last_meal = sim->philosophers->time->start;
+		sim->philosophers[i].last_meal = start_time;
 		sim->philosophers[i].right_fork = &sim->forks[i];
 		sim->philosophers[i].left_fork = &sim->forks[(i + 1) % count];
 		sim->philosophers[i].write_lock = &sim->write_lock;
@@ -71,7 +73,6 @@ void	setup_philosophers(t_simulation *sim, int meals_needed)
 		sim->philosophers[i].meal_lock = &sim->meal_lock;
 		sim->philosophers[i].active = &sim->active;
 		sim->philosophers[i].meals_needed = meals_needed;
-		sim->philosophers[i].time = sim->philosophers->time;
 		i++;
 	}
 }

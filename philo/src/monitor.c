@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:42:08 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/30 16:51:31 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:50:01 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_philo_dead(t_philosopher *philo, size_t now)
 void	handle_philo_death(t_simulation *sim, int i, size_t now)
 {
 	pthread_mutex_lock(sim->philosophers[i].write_lock);
-	printf("[%zu] %d died\n", now, sim->philosophers[i].id + 1);
+	printf("%zu %d died\n", now, sim->philosophers[i].id + 1);
 	pthread_mutex_unlock(sim->philosophers[i].write_lock);
 	pthread_mutex_lock(&sim->active_lock);
 	*sim->philosophers[i].active = 0;
@@ -37,7 +37,7 @@ void	handle_philo_death(t_simulation *sim, int i, size_t now)
 	pthread_mutex_unlock(sim->philosophers[i].meal_lock);
 }
 
-int	monitor_philo(t_simulation *sim, int i, int *full)
+int	monitor_philo(t_simulation *sim, int i, int *completed_meals)
 {
 	size_t	now;
 
@@ -45,7 +45,7 @@ int	monitor_philo(t_simulation *sim, int i, int *full)
 	now = get_time();
 	if (check_philo_full(&sim->philosophers[i]))
 	{
-		*full = *full + 1;
+		*completed_meals = *completed_meals + 1;
 		pthread_mutex_unlock(sim->philosophers[i].meal_lock);
 		return (0);
 	}
@@ -58,7 +58,7 @@ int	monitor_philo(t_simulation *sim, int i, int *full)
 	return (0);
 }
 
-int	monitor_all_philos(t_simulation *sim, int *full)
+int	monitor_all_philos(t_simulation *sim, int *completed_meals)
 {
 	int	i;
 	int	result;
@@ -67,7 +67,7 @@ int	monitor_all_philos(t_simulation *sim, int *full)
 	result = 0;
 	while (i < sim->philosopher_count)
 	{
-		if (monitor_philo(sim, i, full))
+		if (monitor_philo(sim, i, completed_meals))
 			result = 1;
 		if (result)
 			break ;

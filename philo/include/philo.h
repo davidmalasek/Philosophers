@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 10:22:52 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/29 13:44:25 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:50:59 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct s_time
 	size_t			to_die;
 	size_t			to_eat;
 	size_t			to_sleep;
-	size_t			start;
 }					t_time;
 
 typedef struct s_philosopher
@@ -71,8 +70,9 @@ void				*routine(void *args);
 int					check_philo_full(t_philosopher *philo);
 int					check_philo_dead(t_philosopher *philo, size_t now);
 void				handle_philo_death(t_simulation *sim, int i, size_t now);
-int					monitor_philo(t_simulation *sim, int i, int *full);
-int					monitor_all_philos(t_simulation *sim, int *full);
+int					monitor_philo(t_simulation *sim, int i,
+						int *completed_meals);
+int					monitor_all_philos(t_simulation *sim, int *completed_meals);
 
 // cleanup.c
 void				*cleanup_on_error(t_simulation *sim, int stage);
@@ -86,4 +86,5 @@ void				join_threads(t_simulation *sim, pthread_t monitor_thread);
 void				philo_think(t_philosopher *philosopher);
 void				philo_take_forks(t_philosopher *philosopher);
 int					philo_eat(t_philosopher *philosopher);
+void				philo_sleep(t_philosopher *philosopher);
 void				philo_sleep(t_philosopher *philosopher);

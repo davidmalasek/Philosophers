@@ -6,7 +6,7 @@
 /*   By: dmalasek <dmalasek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:13:54 by dmalasek          #+#    #+#             */
-/*   Updated: 2025/07/29 13:44:00 by dmalasek         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:59:09 by dmalasek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int	routine_step(t_philosopher *philosopher)
 	return (0);
 }
 
-static void	handle_single_philosopher(t_philosopher *philosopher)
+void	handle_single_philosopher(t_philosopher *philosopher)
 {
 	size_t	timestamp;
 
 	pthread_mutex_lock(philosopher->left_fork);
 	pthread_mutex_lock(philosopher->write_lock);
 	timestamp = get_time();
-	printf("[%zu] %d has taken a fork\n", timestamp, philosopher->id + 1);
+	printf("%zu %d has taken a fork\n", timestamp, philosopher->id + 1);
 	pthread_mutex_unlock(philosopher->write_lock);
 	precise_sleep(philosopher->time->to_die);
 	pthread_mutex_unlock(philosopher->left_fork);
